@@ -1,0 +1,27 @@
+６カ月移動平均線 = 
+-- 24 Weeks
+var interval = -168
+RETURN
+    IF (
+        NOT ISBLANK(SUM('WHO-COVID-19-candle'[Close])),
+        DIVIDE(
+            CALCULATE(
+                SUM('WHO-COVID-19-candle'[Close]),
+                DATESINPERIOD(
+                    'WHO-COVID-19-candle'[date],
+                    LASTDATE('WHO-COVID-19-candle'[date]),
+                    interval,
+                    DAY
+                )
+            ),
+            CALCULATE(
+                COUNTA('WHO-COVID-19-candle'[Close]),
+                DATESINPERIOD(
+                    'WHO-COVID-19-candle'[date],
+                    LASTDATE('WHO-COVID-19-candle'[date]),
+                    interval,
+                    DAY
+                )
+            )
+        )
+    )
